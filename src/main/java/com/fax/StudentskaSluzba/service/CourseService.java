@@ -12,5 +12,5 @@ public interface CourseService {
     Course insertCourse(Course course);
     Course updateCourse(Course course);
     Course findOneById(Long id);
-
+    List<Course> findCoursesByStudentId(Long studentId);
 }

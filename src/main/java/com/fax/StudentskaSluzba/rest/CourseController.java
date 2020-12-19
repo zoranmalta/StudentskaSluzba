@@ -34,9 +34,27 @@ public class CourseController {
 
     @RequestMapping(value = "/all",method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> getAllCourses(){
-        return new ResponseEntity<List<CourseDTO>>
-                (courseMapper.toCourseDTOList(courseService.findAll()),HttpStatus.OK);
+        try {
+            return new ResponseEntity<List<CourseDTO>>
+                    (courseMapper.toCourseDTOList(courseService.findAll()),HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
+
+    @RequestMapping(value = "/all/{id}",method = RequestMethod.GET)
+    public ResponseEntity<List<CourseDTO>> getAllCoursesByStudent(@PathVariable("id") Long id){
+        try {
+            List<Course> courses=courseService.findCoursesByStudentId(id);
+            return new ResponseEntity<List<CourseDTO>>(courseMapper.toCourseDTOList(courses)
+                    ,HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     public ResponseEntity<CourseDTO> insertCourse(@RequestBody CourseDTO courseDTO){
         Course course=courseMapper.toCourse(courseDTO);

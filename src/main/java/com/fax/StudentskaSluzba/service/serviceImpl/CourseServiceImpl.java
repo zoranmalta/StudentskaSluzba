@@ -39,6 +39,11 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.getOne(id);
     }
 
+    @Override
+    public List<Course> findCoursesByStudentId(Long studentId) {
+        return courseRepository.fetchCourseByStudentIdAndNotDeletedEnrollment(studentId);
+    }
+
     @Transactional
     public void CourseDeleteTransaction(Course course, List<Enrollment> enrollments, List<Engagement> engagements){
         course=courseRepository.save(course);
