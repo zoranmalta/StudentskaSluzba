@@ -12,6 +12,7 @@ truncate table academic;
 truncate table student;
 truncate table staff;
 truncate table course;
+truncate table payment;
 truncate table user;
 
 INSERT INTO user ( username, password)

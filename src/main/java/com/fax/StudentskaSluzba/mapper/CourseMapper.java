@@ -14,6 +14,7 @@ public class CourseMapper {
         courseDTO.setId(course.getId());
         courseDTO.setName(course.getName());
         courseDTO.setDeleted(course.isDeleted());
+        courseDTO.setSit(course.getSit());
         return courseDTO;
     }
 
@@ -22,6 +23,7 @@ public class CourseMapper {
         course.setDeleted(courseDTO.isDeleted());
         course.setId(courseDTO.getId());
         course.setName(courseDTO.getName());
+        course.setSit(courseDTO.getSit());
         return course;
     }
 

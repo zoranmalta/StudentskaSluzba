@@ -1,10 +1,10 @@
 package com.fax.StudentskaSluzba.modeldto;
 
-public class CourseDTO {
+public class ExamTestDTO {
+
     private Long id;
-    private String name;
+    private ExamDTO exam;
     private boolean deleted;
-    private String sit;
 
     public Long getId() {
         return id;
@@ -14,20 +14,12 @@ public class CourseDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public ExamDTO getExam() {
+        return exam;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSit() {
-        return sit;
-    }
-
-    public void setSit(String sit) {
-        this.sit = sit;
+    public void setExam(ExamDTO exam) {
+        this.exam = exam;
     }
 
     public boolean isDeleted() {
@@ -40,11 +32,10 @@ public class CourseDTO {
 
     @Override
     public String toString() {
-        return "CourseDTO{" +
+        return "ExamTestDTO{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", exam=" + exam +
                 ", deleted=" + deleted +
-                ", sit='" + sit + '\'' +
                 '}';
     }
 }

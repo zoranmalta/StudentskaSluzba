@@ -18,6 +18,8 @@ public class Course {
     @Column(columnDefinition = "boolean default false")
     private boolean deleted;
 
+    private String sit;
+
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JsonIgnore
     private Set<Enrollment> enrollments = new HashSet<Enrollment>();
@@ -45,6 +47,14 @@ public class Course {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSit() {
+        return sit;
+    }
+
+    public void setSit(String sit) {
+        this.sit = sit;
     }
 
     public boolean isDeleted() {

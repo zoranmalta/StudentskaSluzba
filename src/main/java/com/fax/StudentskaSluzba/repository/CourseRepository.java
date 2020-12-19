@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
-    @Query(value = "SELECT c.id , c.name , c.deleted "+
+    @Query(value = "SELECT c.id , c.name , c.deleted ,c.sit"+
             " FROM Course c INNER JOIN enrollment e ON c.id=e.course_id AND e.student_id=?1 "+
             "where  e.deleted=false AND c.deleted=false  ",nativeQuery = true)
     List<Course> fetchCourseByStudentIdAndNotDeletedEnrollment(Long studentId);

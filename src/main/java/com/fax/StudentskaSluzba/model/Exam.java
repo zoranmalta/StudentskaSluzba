@@ -29,6 +29,10 @@ public class Exam {
     @OneToMany(targetEntity = ExamRegistration.class, mappedBy = "exam", orphanRemoval = false, fetch = FetchType.LAZY)
     private Set<ExamRegistration> examRegistrations = new HashSet<ExamRegistration>();
 
+    @JsonIgnore
+    @OneToMany(targetEntity = ExamTest.class, mappedBy = "exam", orphanRemoval = false, fetch = FetchType.LAZY)
+    private Set<ExamTest> examTests = new HashSet<ExamTest>();
+
     @Column(name = "exam_start",
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Timestamp examStart;
@@ -91,6 +95,14 @@ public class Exam {
 
     public void setExamRegistrations(Set<ExamRegistration> examRegistrations) {
         this.examRegistrations = examRegistrations;
+    }
+
+    public Set<ExamTest> getExamTests() {
+        return examTests;
+    }
+
+    public void setExamTests(Set<ExamTest> examTests) {
+        this.examTests = examTests;
     }
 
     public Timestamp getExamStart() {
