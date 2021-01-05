@@ -6,7 +6,9 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,7 +33,7 @@ public class Exam {
 
     @JsonIgnore
     @OneToMany(targetEntity = ExamTest.class, mappedBy = "exam", orphanRemoval = false, fetch = FetchType.LAZY)
-    private Set<ExamTest> examTests = new HashSet<ExamTest>();
+    private List<ExamTest> examTestList = new ArrayList<>();
 
     @Column(name = "exam_start",
             columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
@@ -97,12 +99,12 @@ public class Exam {
         this.examRegistrations = examRegistrations;
     }
 
-    public Set<ExamTest> getExamTests() {
-        return examTests;
+    public List<ExamTest> getExamTestList() {
+        return examTestList;
     }
 
-    public void setExamTests(Set<ExamTest> examTests) {
-        this.examTests = examTests;
+    public void setExamTestList(List<ExamTest> examTestList) {
+        this.examTestList = examTestList;
     }
 
     public Timestamp getExamStart() {
@@ -121,14 +123,5 @@ public class Exam {
         this.archived = archived;
     }
 
-    @Override
-    public String toString() {
-        return "Exam{" +
-                "id=" + id +
-                ", period=" + period +
-                ", examRegistrations=" + examRegistrations +
-                ", examStart=" + examStart +
-                ", archived=" + archived +
-                '}';
-    }
+
 }

@@ -36,6 +36,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
+    public List<Exam> getExamsByStudentIdNotArchivated(Long studentId) {
+        return examRepository.fetchExamsByStudentIdNotArchivated(studentId);
+    }
+
+    @Override
     public List<Exam> getExamsByStudentId(Long studentId, Timestamp timestamp) {
         return examRepository.fetchExamsByStudentId(studentId,timestamp);
     }

@@ -16,16 +16,28 @@ public class ExamTestMapper {
     public ExamTest toExamTest(ExamTestDTO examTestDTO){
         ExamTest e=new ExamTest();
         e.setId(examTestDTO.getId());
+        e.setBodovi(examTestDTO.getBodovi());
+        e.setTema(examTestDTO.getTema());
+        e.setTestStart(examTestDTO.getTestStart());
+        e.setTrajanje(examTestDTO.getTrajanje());
         e.setExam(examMapper.toExam(examTestDTO.getExam()));
         e.setDeleted(examTestDTO.isDeleted());
+        e.setZavrseno(examTestDTO.isZavrseno());
+        e.setDostupno(examTestDTO.isDostupno());
         return e;
     }
 
     public ExamTestDTO toExamTestDTO(ExamTest examTest){
         ExamTestDTO e=new ExamTestDTO();
         e.setId(examTest.getId());
+        e.setTrajanje(examTest.getTrajanje());
+        e.setTema(examTest.getTema());
+        e.setTestStart(examTest.getTestStart());
+        e.setBodovi(examTest.getBodovi());
         e.setExam(examMapper.toExamDTO(examTest.getExam()));
         e.setDeleted(examTest.isDeleted());
+        e.setZavrseno(examTest.isZavrseno());
+        e.setDostupno(examTest.isDostupno());
         return e;
     }
 

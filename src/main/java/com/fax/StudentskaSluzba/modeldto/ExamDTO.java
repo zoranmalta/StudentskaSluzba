@@ -3,15 +3,17 @@ package com.fax.StudentskaSluzba.modeldto;
 import com.fax.StudentskaSluzba.model.ExaminationPeriod;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExamDTO {
 
     private Long id;
     private ExaminationPeriod period;
     private CourseDTO course;
-    private Long courseId;
     private Timestamp examStart;
     private boolean archived;
+    private List<ExamTestDTO> examTestList=new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -53,12 +55,14 @@ public class ExamDTO {
         this.archived = archived;
     }
 
-    public Long getCourseId() {
-        return courseId;
+
+
+    public List<ExamTestDTO> getExamTestList() {
+        return examTestList;
     }
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setExamTestList(List<ExamTestDTO> examTestList) {
+        this.examTestList = examTestList;
     }
 
     @Override
@@ -66,9 +70,10 @@ public class ExamDTO {
         return "ExamDTO{" +
                 "id=" + id +
                 ", period=" + period +
-                ", courseId=" + courseId +
+                ", course=" + course +
                 ", examStart=" + examStart +
                 ", archived=" + archived +
+                ", examTestList=" + examTestList +
                 '}';
     }
 }

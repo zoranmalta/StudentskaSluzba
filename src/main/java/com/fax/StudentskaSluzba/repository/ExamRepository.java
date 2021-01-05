@@ -12,6 +12,11 @@ import java.util.List;
 public interface ExamRepository extends JpaRepository<Exam,Long> {
 
     @Query(value = "select ex.id,ex.course_id,ex.exam_start,ex.period,ex.archived from exam ex "+
+            "inner join exam_registration er on ex.id=er.exam_id where ex.archived=false and er.student_id=?1 "
+            ,nativeQuery = true)
+    List<Exam> fetchExamsByStudentIdNotArchivated(Long studentId);
+
+    @Query(value = "select ex.id,ex.course_id,ex.exam_start,ex.period,ex.archived from exam ex "+
             "inner join course c on ex.course_id=c.id where ex.exam_start > ?2 and  c.id in " +
             "(select c.id from course c inner join enrollment e on c.id=e.course_id where e.student_id=?1)"+
             "and c.id not in (select ex.course_id from exam ex inner join exam_registration er on ex.id=er.exam_id " +

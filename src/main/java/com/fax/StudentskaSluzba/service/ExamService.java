@@ -11,6 +11,7 @@ public interface ExamService {
     List<Exam> getAll();
     Exam insertExam(Exam exam);
     Exam findOneById(Long id);
+    List<Exam> getExamsByStudentIdNotArchivated(Long studentId);
     List<Exam> getExamsByStudentId(Long studentId, Timestamp timestamp);
     List<Exam> getExamsByStudentIdNotRegistration(Long studentId , Timestamp timestamp);
     List<Exam> getExamsByStaff(Long staffId);

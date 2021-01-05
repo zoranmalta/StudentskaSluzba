@@ -11,12 +11,16 @@ import java.util.stream.Collectors;
 public class ExamMapper {
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private ExamTestMapper examTestMapper;
 
     public Exam toExam(ExamDTO examDTO){
         Exam exam=new Exam();
+        exam.setId(examDTO.getId());
         exam.setPeriod(examDTO.getPeriod());
         exam.setCourse(courseMapper.toCourse(examDTO.getCourse()));
         exam.setExamStart(examDTO.getExamStart());
+        exam.setArchived(examDTO.isArchived());
 
         return exam;
     }

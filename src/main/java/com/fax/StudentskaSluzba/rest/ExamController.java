@@ -2,20 +2,26 @@ package com.fax.StudentskaSluzba.rest;
 
 import com.fax.StudentskaSluzba.mapper.CourseMapper;
 import com.fax.StudentskaSluzba.mapper.ExamMapper;
+import com.fax.StudentskaSluzba.mapper.ExamTestMapper;
 import com.fax.StudentskaSluzba.model.Exam;
+import com.fax.StudentskaSluzba.model.ExamTest;
 import com.fax.StudentskaSluzba.modeldto.ExamDTO;
+import com.fax.StudentskaSluzba.modeldto.ExamTestDTO;
 import com.fax.StudentskaSluzba.service.CourseService;
 import com.fax.StudentskaSluzba.service.ExamService;
+import com.fax.StudentskaSluzba.service.ExamTestService;
 import com.fax.StudentskaSluzba.service.serviceImpl.ExamServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Executable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,6 +36,10 @@ public class ExamController {
     private CourseService courseService;
     @Autowired
     private CourseMapper courseMapper;
+    @Autowired
+    private ExamTestService examTestService;
+    @Autowired
+    private ExamTestMapper examTestMapper;
 
     @RequestMapping(value = "all",method = RequestMethod.GET)
     public ResponseEntity<List<ExamDTO>> getAllExams(){
@@ -89,6 +99,30 @@ public class ExamController {
         }
     }
 
+    @RequestMapping(value = "notarchivated/{id}",method = RequestMethod.GET)
+    public ResponseEntity<List<ExamDTO>> getExamsByStudentIdNotArchivated(@PathVariable("id") Long id){
+        try {
+            List<Exam> exams=examService.getExamsByStudentIdNotArchivated(id);
+            System.out.println("preuuzeto iz baze za exam :  "+exams);
+
+            List<ExamDTO> list=new ArrayList<>();
+            for (Exam exam:exams) {
+                ExamDTO examDTO=examMapper.toExamDTO(exam);
+                List<ExamTest> list1=examTestService.getAllByExam(exam);
+                List<ExamTestDTO> examTestDTOList=examTestMapper.toListExamTestDTO(list1);
+
+                System.out.println("setovan exam iz baze:  "+exam);
+                examDTO.setExamTestList(examTestDTOList);
+                list.add(examDTO);
+
+            }
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = "staff/{id}",method = RequestMethod.GET)
     public ResponseEntity<List<ExamDTO>> getExamsByStaff(@PathVariable("id") Long id){
         try {
@@ -105,6 +139,7 @@ public class ExamController {
         try {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             List<Exam> exams=examService.getExamsByStudentIdNotRegistration(id,timestamp);
+
             return new ResponseEntity<>(examMapper.toExamDTOList(exams), HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();

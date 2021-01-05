@@ -16,7 +16,9 @@ public class QuestionMapper {
     public Question toQuestion(QuestionDTO questionDTO){
         Question q=new Question();
         q.setId(questionDTO.getId());
-        q.setExamTest(examTestMapper.toExamTest(questionDTO.getExamTest()));
+        if(questionDTO.getExamTest()!=null){
+            q.setExamTest(examTestMapper.toExamTest(questionDTO.getExamTest()));
+        }
         q.setDeleted(questionDTO.isDeleted());
         q.setPitanje(questionDTO.getPitanje());
         q.setOdgovor1(questionDTO.getOdgovor1());
@@ -42,5 +44,9 @@ public class QuestionMapper {
     public List<QuestionDTO> toListQuestionDTO(List<Question> list){
         return list.stream().map(question -> toQuestionDTO(question))
                 .collect(Collectors.toList());
+    }
+
+    public List<Question> toListQuestion(List<QuestionDTO> list){
+        return list.stream().map(questionDTO -> toQuestion(questionDTO)).collect(Collectors.toList());
     }
 }
