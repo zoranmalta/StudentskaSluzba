@@ -1,22 +1,30 @@
 package com.fax.StudentskaSluzba.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
+@Data
+@NoArgsConstructor
+@ToString
 public class ExamTest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(columnDefinition = "int default 20")
     private int trajanje;
-    @Column(columnDefinition = "int default 100")
+    @Column(columnDefinition = "int default 0")
     private int bodovi;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,6 +41,10 @@ public class ExamTest {
     @OneToMany(targetEntity = Question.class, mappedBy = "examTest", orphanRemoval = false, fetch = FetchType.LAZY)
     private Set<Question> questions = new HashSet<Question>();
 
+    @JsonIgnore
+    @OneToMany(targetEntity = WorkTest.class, mappedBy = "examTest", orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<WorkTest> workTests=new ArrayList<>();
+
     @Column(columnDefinition = "boolean default false")
     private boolean deleted;
 
@@ -42,83 +54,4 @@ public class ExamTest {
     @Column(columnDefinition = "boolean default false")
     private boolean zavrseno;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getTrajanje() {
-        return trajanje;
-    }
-
-    public void setTrajanje(int trajanje) {
-        this.trajanje = trajanje;
-    }
-
-    public int getBodovi() {
-        return bodovi;
-    }
-
-    public void setBodovi(int bodovi) {
-        this.bodovi = bodovi;
-    }
-
-    public Exam getExam() {
-        return exam;
-    }
-
-    public void setExam(Exam exam) {
-        this.exam = exam;
-    }
-
-    public String getTema() {
-        return tema;
-    }
-
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-
-    public Timestamp getTestStart() {
-        return testStart;
-    }
-
-    public void setTestStart(Timestamp testStart) {
-        this.testStart = testStart;
-    }
-
-    public Set<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public boolean isDostupno() {
-        return dostupno;
-    }
-
-    public void setDostupno(boolean dostupno) {
-        this.dostupno = dostupno;
-    }
-
-    public boolean isZavrseno() {
-        return zavrseno;
-    }
-
-    public void setZavrseno(boolean zavrseno) {
-        this.zavrseno = zavrseno;
-    }
 }

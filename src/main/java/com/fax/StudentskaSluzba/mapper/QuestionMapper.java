@@ -26,6 +26,7 @@ public class QuestionMapper {
         q.setOdgovor3(questionDTO.getOdgovor3());
         q.setOdgovor4(questionDTO.getOdgovor4());
         q.setOpis(questionDTO.getOpis());
+        q.setBodovi(questionDTO.getBodovi());
         return q;
     }
     public QuestionDTO toQuestionDTO(Question question){
@@ -39,6 +40,7 @@ public class QuestionMapper {
         q.setOdgovor3(question.getOdgovor3());
         q.setOdgovor4(question.getOdgovor4());
         q.setOpis(question.getOpis());
+        q.setBodovi(question.getBodovi());
         return q;
     }
     public List<QuestionDTO> toListQuestionDTO(List<Question> list){

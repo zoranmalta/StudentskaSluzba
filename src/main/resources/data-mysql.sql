@@ -18,6 +18,8 @@ truncate table exam;
 truncate table exam_test;
 truncate table question;
 truncate table exam_registration;
+truncate table work_test;
+truncate table answer;
 
 INSERT INTO user ( username, password)
 VALUES ('user', '$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra'),

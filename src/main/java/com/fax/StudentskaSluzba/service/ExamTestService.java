@@ -13,4 +13,5 @@ public interface ExamTestService {
     public ExamTest save(ExamTest examTest);
     public List<ExamTest> getAllByExam(Exam exam);
     public ExamTestDTO saveExamTest(ExamTest examTestDTO,List<QuestionDTO> list);
+    public ExamTest getOneById(Long examTestId);
 }

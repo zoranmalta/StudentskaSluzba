@@ -42,6 +42,10 @@ public class ExamTestServiceImpl implements ExamTestService {
     @Override
     @Transactional
     public ExamTestDTO saveExamTest(ExamTest examTest, List<QuestionDTO> list){
+        for (QuestionDTO q :
+                list) {
+            examTest.setBodovi(examTest.getBodovi()+q.getBodovi());
+        }
         ExamTest e=examTestRepository.save(examTest);
         List<Question> q=questionMapper.toListQuestion(list);
         q=q.stream().map(question -> {question.setExamTest(e);return question;}).collect(Collectors.toList());
@@ -50,4 +54,11 @@ public class ExamTestServiceImpl implements ExamTestService {
         examTestDTO.setQuestions(questionMapper.toListQuestionDTO(list1));
         return examTestDTO;
     }
+
+    @Override
+    public ExamTest getOneById(Long examTestId) {
+        return examTestRepository.getOne(examTestId);
+    }
+
+
 }

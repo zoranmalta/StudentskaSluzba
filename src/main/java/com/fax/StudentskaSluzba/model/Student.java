@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,6 +39,10 @@ public class Student implements Serializable {
     @JsonIgnore
     @OneToMany(targetEntity = ExamRegistration.class, mappedBy = "student", orphanRemoval = false, fetch = FetchType.LAZY)
     private Set<ExamRegistration> examRegistrations = new HashSet<ExamRegistration>();
+
+    @JsonIgnore
+    @OneToMany(targetEntity = WorkTest.class, mappedBy = "student", orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<WorkTest> workTests=new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(targetEntity = Payment.class, mappedBy = "student", orphanRemoval = false, fetch = FetchType.LAZY)
